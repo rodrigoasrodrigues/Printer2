@@ -120,16 +120,14 @@
 #define X_DIR_PIN                             55
 #define X_ENABLE_PIN                          38
 #ifndef X_CS_PIN
-  // #define X_CS_PIN                   AUX3_03_PIN
-  #define X_CS_PIN                            64
+  #define X_CS_PIN                   AUX3_03_PIN
 #endif
 
 #define Y_STEP_PIN                            60
 #define Y_DIR_PIN                             61
 #define Y_ENABLE_PIN                          56
 #ifndef Y_CS_PIN
-  // #define Y_CS_PIN                   AUX3_07_PIN
-  #define Y_CS_PIN                            66
+  #define Y_CS_PIN                   AUX3_07_PIN
 #endif
 
 #ifndef Z_STEP_PIN
@@ -142,8 +140,7 @@
   #define Z_ENABLE_PIN                        62
 #endif
 #ifndef Z_CS_PIN
-  // #define Z_CS_PIN                            40
-  #define Z_CS_PIN                            63
+  #define Z_CS_PIN                            40
 #endif
 
 #ifndef E0_STEP_PIN
@@ -156,8 +153,7 @@
   #define E0_ENABLE_PIN                       24
 #endif
 #ifndef E0_CS_PIN
-  // #define E0_CS_PIN                           42
-  #define E0_CS_PIN                           59
+  #define E0_CS_PIN                           42
 #endif
 
 #ifndef E1_STEP_PIN
