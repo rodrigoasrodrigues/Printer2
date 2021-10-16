@@ -927,7 +927,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 40, 50 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 90, 90, 800, 50 }
 
 
 /**
@@ -935,8 +935,8 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define FEEDX 400
-#define FEEDY 400
+#define FEEDX 1000
+#define FEEDY 1000
 #define FEEDZ 50
 #define FEEDE 800
 // #define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
