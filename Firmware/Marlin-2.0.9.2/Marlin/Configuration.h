@@ -927,7 +927,9 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.3808, 80.5930, 400, 135.6589 }
+//RR
+// E 146.3419
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 77.3749, 78.0047, 399.82, 135 }
 
 
 /**
@@ -935,10 +937,10 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define FEEDX 1000
-#define FEEDY 1000
+#define FEEDX 600
+#define FEEDY 600
 #define FEEDZ 100
-#define FEEDE 1000
+#define FEEDE 300
 // #define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
 #define DEFAULT_MAX_FEEDRATE          { FEEDX, FEEDY, FEEDZ, FEEDE }
 
@@ -953,13 +955,14 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-
+// RR
 // #define ACCX 3000
 // #define ACCY 3000
-#define ACCX 2000
-#define ACCY 3000
+#define ACCX 1000
+#define ACCY 1000
 #define ACCZ 100
-#define ACCE 10000
+// #define ACCE 10000
+#define ACCE 1000
 // #define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
 
 #define DEFAULT_MAX_ACCELERATION      { ACCX, ACCY, ACCZ, ACCE }
@@ -1194,7 +1197,8 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -38, 14, -0.4 }
+// RR
+#define NOZZLE_TO_PROBE_OFFSET { -38, 14, -0.5 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1760,7 +1764,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { 1000, 1000, 240 }
+#define HOMING_FEEDRATE_MM_M { 20*60, 20*60, 20*60 }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
