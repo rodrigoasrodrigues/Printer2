@@ -1,14 +1,23 @@
+// i believe this is remixed from https://www.thingiverse.com/thing:959381/files
 //head
 include <MCAD/nuts_and_bolts.scad>;
-$fn=50;
-mode=1; //0-full 1-base part 2-clamp
-extruder=0;  // 0 - model 1-additivities
+$fn=200;
+mode=2; //0-full 1-base part 2-clamp
+extruder=1;  // 0 - model 1-additivities
 oversize=0.2;
-hole_height=18+5;
+hole_height=23;
 detector_diameter=9;
-detector_washer=1+20;
+detector_washer=21;
 detector_edge=15;
 plate_width=50;
+fs=100; //round surfaces precision
+gopro_mount=true;
+gp_mount_fin_width=3;
+gp_mount_fin_margin=0.1;
+gp_mount_fin_clearance=2;
+gp_mount_width=17;
+gp_mount_radius=9.8;
+gp_mount_spacer_height=4;
 echo ("Y_PROBE_OFFSET_FROM_EXTRUDER =",(hole_height-detector_washer/2));
 echo ("X_PROBE_OFFSET_FROM_EXTRUDER =",-(plate_width/2+detector_washer/2));
 //subs
@@ -44,7 +53,7 @@ module head_hole(cap=6){
 module detector_clamp(){
     translate([0,0,6])cube([6,6,detector_edge]);
     translate([6,0,6])prism(6,10,detector_edge);
-    translate([6,6,6])rotate([0,0,90,0])prism(6,20,detector_edge);
+    translate([6,6,6])rotate([0,0,90])prism(6,20,detector_edge);
     translate([0,6,0])rotate([90,0,180])prism(6,detector_washer,40-6);
     translate([-detector_washer,0,0])difference(){
         cube([detector_washer,6,6+detector_washer]);
@@ -91,7 +100,58 @@ difference(){
         translate([0,-25,-6-0.1])cylinder(6.2,r=1.6);
     }
     //translate([0,-21,-6-0.1])cylinder(6.2,r=9);    
-}
+    
+    }
+    //go pro style mount for fan
+    if(gopro_mount){
+        translate([-gp_mount_width/2,-gp_mount_radius/2,h]){
+            difference(){
+                group(){
+                //base
+                cube([gp_mount_width,
+                        gp_mount_radius,
+                        gp_mount_radius/2+gp_mount_spacer_height]);
+                //rouded part
+                translate([0,
+                            gp_mount_radius/2,
+                            gp_mount_radius/2+ gp_mount_spacer_height])
+                    rotate([0,90,0])
+                        cylinder(h=gp_mount_width,
+                                d=gp_mount_radius,
+                                $fs=fs);
+                }
+                //fins
+                translate([gp_mount_width/2+
+                            gp_mount_fin_width/2-gp_mount_fin_margin/2,
+                            gp_mount_radius/2,
+                            gp_mount_radius/2+ gp_mount_spacer_height])
+                    rotate([0,90,0])
+                        cylinder(
+                            h=gp_mount_fin_width+gp_mount_fin_margin,
+                            d=gp_mount_radius+gp_mount_fin_clearance,
+                            $fs=fs);
+                
+                translate([gp_mount_width/2-3/2*gp_mount_fin_width+
+                            gp_mount_fin_margin/2,
+                            gp_mount_radius/2,
+                            gp_mount_radius/2+ gp_mount_spacer_height])
+                    rotate([0,90,0])
+                        cylinder(h=gp_mount_fin_width+gp_mount_fin_margin,
+                                d=gp_mount_radius+gp_mount_fin_clearance,
+                                $fs=fs);
+                translate([gp_mount_width-2,
+                            gp_mount_radius/2,
+                            gp_mount_radius/2+ gp_mount_spacer_height])
+                    rotate([0,90,0])
+                        nutHole(3);
+                translate([2.5,
+                            gp_mount_radius/2,
+                            gp_mount_radius/2+ gp_mount_spacer_height])
+                    rotate([0,90,0])
+                        boltHole(3,length=30);
+            }
+        }
+    }
 }
 
 if (mode==0)
@@ -103,23 +163,8 @@ difference(){
     translate([-30,-10,hole_height])cube([60,20,hole_height]);
 }
 else
-if (mode==2){ rotate([0,180,0])translate([0,0,-hole_height])intersection(){
+if (mode==2){ rotate([0,0,0])translate([0,0,-hole_height])intersection(){
     full();
-    translate([-30,-10,hole_height])cube([60,20,hole_height]);
+    translate([-30,-10,hole_height])cube([60,20,50]);
 }
 }
-if (extruder==1)
-	translate([0,0,hole_height]){
-	translate([-0,-60,0])
-	rotate([0,-90,0])
-	translate([-8.7,0,-15.85])import("E3D V6 1.75 Uni model.STL", convexity=3);
-
-	translate([0,-25,0])
-	rotate([90,-90,0])
-	translate([15.9,-2.5,-25])scale(0.85)import("E3D_Duct_wo_Plate.stl", convexity=3);
-
-	translate([5,-29.5,13])rotate([90,-90,0])
-	mirror()rotate([0,32.5,0])
-	translate([2,3,-35-15])import("E3D_Fan_Nozzle_v2.stl", convexity=3);
-}
-
