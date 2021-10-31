@@ -2589,7 +2589,9 @@
    */
   #define INTERPOLATE      true
 
-#define RR_TMC_CURRENT 800
+// RR
+#define RR_TMC_CURRENT 600
+#define RR_TMC_CURRENT_Z 800
 #define RR_TMC_STEPS 16
 
   #if AXIS_IS_TMC(X)
@@ -2629,7 +2631,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       RR_TMC_CURRENT
+    #define Z_CURRENT       RR_TMC_CURRENT_Z
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     RR_TMC_STEPS
     #define Z_RSENSE          0.11
@@ -2949,11 +2951,12 @@
    */
   #define SENSORLESS_HOMING // StallGuard capable drivers only
 
+// RR
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
     #define X_STALL_SENSITIVITY  22
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  25
+    #define Y_STALL_SENSITIVITY  26
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
