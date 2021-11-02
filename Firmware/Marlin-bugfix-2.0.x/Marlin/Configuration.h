@@ -494,7 +494,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -936,9 +936,10 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
+// RR
 #define FEEDX 600
 #define FEEDY 600
-#define FEEDZ 100
+#define FEEDZ 50
 #define FEEDE 300
 // #define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
 #define DEFAULT_MAX_FEEDRATE          { FEEDX, FEEDY, FEEDZ, FEEDE }
@@ -957,9 +958,9 @@
 // RR
 // #define ACCX 3000
 // #define ACCY 3000
-#define ACCX 1000
-#define ACCY 1000
-#define ACCZ 100
+#define ACCX 800
+#define ACCY 800
+#define ACCZ 50
 // #define ACCE 10000
 #define ACCE 1000
 // #define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
@@ -991,7 +992,8 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-//#define CLASSIC_JERK
+// RR
+#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
@@ -1277,7 +1279,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
@@ -1761,9 +1763,9 @@
   #define Z_SAFE_HOMING_X_POINT X_CENTER  // X point for Z homing
   #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
 #endif
-
+// RR
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { 20*60, 20*60, 20*60 }
+#define HOMING_FEEDRATE_MM_M { 40*60, 40*60, 20*60 }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS

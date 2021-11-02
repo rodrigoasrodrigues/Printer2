@@ -2597,12 +2597,14 @@
   #define INTERPOLATE      true
 
 // RR
-#define RR_TMC_CURRENT 600
-#define RR_TMC_CURRENT_Z 800
+#define RR_TMC_CURRENT_X 600
+#define RR_TMC_CURRENT_Y 650
+#define RR_TMC_CURRENT_Z 700
+#define RR_TMC_CURRENT_E 500
 #define RR_TMC_STEPS 16
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       RR_TMC_CURRENT        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       RR_TMC_CURRENT_X        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     RR_TMC_STEPS        // 0..256
     #define X_RSENSE          0.11
@@ -2620,7 +2622,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       RR_TMC_CURRENT
+    #define Y_CURRENT       RR_TMC_CURRENT_Y
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     RR_TMC_STEPS
     #define Y_RSENSE          0.11
@@ -2701,7 +2703,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      RR_TMC_CURRENT
+    #define E0_CURRENT      RR_TMC_CURRENT_E
     #define E0_MICROSTEPS    RR_TMC_STEPS
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
@@ -2963,7 +2965,7 @@
     // TMC2209: 0...255. TMC2130: -64...63
     #define X_STALL_SENSITIVITY  22
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY  26
+    #define Y_STALL_SENSITIVITY  24
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY
