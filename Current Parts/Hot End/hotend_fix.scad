@@ -2,7 +2,7 @@
 //head
 include <MCAD/nuts_and_bolts.scad>;
 $fn=200;
-mode=2; //0-full 1-base part 2-clamp
+mode=1; //0-full 1-base part 2-clamp
 extruder=1;  // 0 - model 1-additivities
 oversize=0.2;
 hole_height=23;
@@ -160,7 +160,7 @@ else
 if (mode==1)
 difference(){
     full();
-    translate([-30,-10,hole_height])cube([60,20,hole_height]);
+    translate([-30,-10,hole_height])cube([60,20,hole_height*2]);
 }
 else
 if (mode==2){ rotate([0,0,0])translate([0,0,-hole_height])intersection(){
