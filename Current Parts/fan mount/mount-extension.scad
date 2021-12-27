@@ -1,4 +1,4 @@
-ext_length=30;
+ext_length=15;
 ext_thichness=9.8;
 include <go_pro_style_mount.scad>;
 
