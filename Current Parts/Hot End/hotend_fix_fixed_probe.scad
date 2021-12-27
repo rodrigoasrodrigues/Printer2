@@ -2,7 +2,7 @@
 //head
 include <MCAD/nuts_and_bolts.scad>;
 $fn=200;
-mode=1; //0-full 1-base part 2-clamp
+mode=0; //0-full 1-base part 2-clamp
 extruder=1;  // 0 - model 1-additivities
 oversize=0.2;
 hole_height=23;

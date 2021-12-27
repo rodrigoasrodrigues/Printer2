@@ -1,14 +1,22 @@
 //head
 include <MCAD/nuts_and_bolts.scad>;
-$fn=50;
-mode=1; //0-full 1-base part 2-clamp
+include <../fan mount/go_pro_style_mount.scad>;
+$fn=250;
+mode=0; //0-full 1-base part 2-clamp
 extruder=0;  // 0 - model 1-additivities
 oversize=0.2;
 hole_height=18;
 bltouch_hole=3.5;
 bltouch_w=11+6;
-bltouch_l=26.5+12;
 bltouch_dist=14.4+bltouch_hole;
+bltouch_l=bltouch_dist+12;
+gopro_mount=true;
+gp_mount_fin_width=3;
+gp_mount_fin_margin=0.1;
+gp_mount_fin_clearance=2;
+gp_mount_width=17;
+gp_mount_radius=9.8;
+gp_mount_spacer_height=4;
 //subs
 module prism(l, w, h) {
 	translate([0, l, 0]) rotate( a= [90, 0, 0]) 
@@ -37,12 +45,15 @@ module head_hole(cap=5){
 }
 module detector_clamp(){
     plate=26;
-    translate([0,25,6])cube([6,6,15]);
+    difference(){
+        translate([0,25,6])cube([6,6+4,15]);
+        translate([0,25+6+10,6+28]) rotate([180,0,0]) prism(10,7.5,28);
+    }
     //translate([-3,0,plate])prism(6,6,6);
     //translate([6,25,6])prism(6,10,15);
-    translate([0,25,6])rotate([0,0,-90,0])prism(6,20,15);
-    translate([0,25,0])rotate([90,0,0])prism(6,-bltouch_w,25);
-    translate([0,25+6,0])rotate([90,0,180])prism(6,bltouch_w,25);
+    translate([0,25,6])rotate([0,0,-90])prism(6,20,15);
+    translate([0,25,0])rotate([90,0,0])prism(6,-bltouch_w,20);
+    translate([0,25+6,0])rotate([90,0,180])prism(6,bltouch_w,24);
     // CLAMP
     translate([-bltouch_w,25,0])difference(){
         cube([bltouch_w,6,6+bltouch_l]);
@@ -73,7 +84,8 @@ difference(){
         translate([-w/2,-plate+9+6,-6])
          {
           difference(){
-            cube([w,plate,6]);
+              translate([0,5,0])
+            cube([w,plate-5,6]);
             translate([w+0.1,-0.1,-0.1])rotate([90,0,180])prism(6.2,20,30);
           }
           detector_clamp();
@@ -86,14 +98,20 @@ difference(){
         translate([s,0,h-3])cylinder(3.1,r=2.75);
     }
     //base holes
-    translate([0,-base,0])
+    translate([0,-base-2,0])
     {
         translate([15,0,-6-0.1])cylinder(6.2,r=1.6);
         translate([-15,0,-6-0.1])cylinder(6.2,r=1.6);
-        translate([0,-25,-6-0.1])cylinder(6.2,r=1.6);
+        translate([0,0,-6-0.1])cylinder(6.2,r=1.6);
+        translate([0,-13,-6-0.1])cylinder(6.2,r=1.6);
     }
     
-}
+    }
+    //go pro style mount for fan
+    if(gopro_mount){
+        translate([0,0,h]) go_pro_base();
+    }
+
 }
 
 if (mode==0)
@@ -102,13 +120,14 @@ else
 if (mode==1)
 difference(){
     full();
-    translate([-22,-10,hole_height])cube([60,20,hole_height]);
+    translate([-22,-10,hole_height])cube([60,20,hole_height+20]);
 }
 else
-if (mode==2){ translate([0,0,-hole_height])intersection(){
-    full();
-    translate([-30,-10,hole_height])cube([60,20,hole_height]);
-}
+if (mode==2){ 
+    translate([0,0,-hole_height])intersection(){
+        full();
+        translate([-22,-10,hole_height])cube([60,20,hole_height+30]);
+    }
 }
 if (extruder==1)
 	translate([0,0,hole_height]){
